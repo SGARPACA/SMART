@@ -220,7 +220,6 @@ const actions = {
     GET_EPCIS_GEOJSON: async ({dispatch}) => {
         try {
             let response = await axios.get(process.env.API_HOST + api.geojson + '?type=epcis');
-            console.log(response.data.data);
             dispatch('SET_EPCIS', JSON.parse(response.data.data));
         } catch (error) {
             throw error;
@@ -252,10 +251,17 @@ const actions = {
     },
     FETCH_MAP_DATA: async ({commit, dispatch, rootGetters}) => {
         newCall = CancelToken.source();
-        source.cancel('map cancel request.');
+        await source.cancel('map cancel request.');
+
         await dispatch('SET_DATA', {indicator: [], financial: []});
         const form = await rootGetters['form/getForm'];
+
+        if (form.department === null) {
+            return;
+        }
+
         await commit('SET_LOADING', true);
+
         axios.post(process.env.API_HOST + api.data, form, {
             cancelToken: newCall.token
         }).then(function (response) {

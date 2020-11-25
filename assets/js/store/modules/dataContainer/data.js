@@ -44,6 +44,11 @@ const actions = {
         newCall = CancelToken.source();
         await source.cancel();
         const form = await rootGetters['form/getForm'];
+
+        if (form.department === null) {
+            return;
+        }
+
         await commit('setLoading', true);
         axios.post(process.env.API_HOST + api.get, form, {
             cancelToken: newCall.token

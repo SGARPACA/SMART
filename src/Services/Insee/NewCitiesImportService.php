@@ -85,14 +85,16 @@ class NewCitiesImportService extends AbstractInseeImport
      */
     public function processData(array $data, array $parameters)
     {
-        $exist = $this->cityRepository->findOneBy(['insee' => $data[self::NEW_INSEE_INDEX]]);
+        $exist = $this->cityRepository->findOneBy(['insee' => $data[self::NEW_INSEE_INDEX], 'year' => $parameters['year']]);
 
         if (!$exist instanceof City) {
             return 0;
         }
 
         $dql = $this->entityManager->createQuery(
-            'UPDATE App\Entity\City c SET c.actualCity = :actualCityId where c.insee = :oldInsee and c.id != :actualCityId'
+            'UPDATE App\Entity\City c SET c.actualCity = :actualCityId 
+            where (c.insee = :oldInsee or c.actualCity IN (select co.id FROM App\Entity\City co where co.insee = :oldInsee ))
+             and c.id != :actualCityId'
         );
         $dql
             ->setParameter('oldInsee', $data[self::OLD_INSEE_INDEX])

@@ -3,6 +3,7 @@
 
 namespace App\Form;
 
+use App\Repository\CityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,6 +20,21 @@ class RegionalPerimeterImportType extends AbstractType
 {
 
     /**
+     * @var CityRepository
+     */
+    private $cityRepository;
+
+    /**
+     * ImportLogType constructor.
+     * @param CityRepository $cityRepository
+     */
+    public function __construct(CityRepository $cityRepository)
+    {
+        $this->cityRepository = $cityRepository;
+    }
+
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -27,7 +43,7 @@ class RegionalPerimeterImportType extends AbstractType
         $builder
             ->add('year', ChoiceType::class, [
                 'label' => 'Année',
-                'choices' => $this->getYears(2000),
+                'choices' => $this->getYears(),
 
             ])
             ->add('regional_perimeter', FileType::class, [
@@ -68,12 +84,19 @@ class RegionalPerimeterImportType extends AbstractType
     }
 
     /**
-     * @param $min
-     * @param string $max
      * @return array
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    private function getYears($min, $max = 'current')
+    private function getYears(): array
     {
+        $min = $this->cityRepository->getMaxYear();
+        $max = $min + 1;
+
+        if ($min === null) {
+            $min = 2000;
+            $max = 'current';
+        }
+
         $years = range($min, ($max === 'current' ? date('Y') : $max));
 
         return array_combine($years, $years);

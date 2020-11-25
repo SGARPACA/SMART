@@ -36,7 +36,7 @@
                     <strong>{{ financial.city_name }}</strong>
                     <ul>
                         <li v-for="(datum, index) in financial.data">{{ financial.import_models[index] }} :
-                            {{ numberFormat(datum) }}
+                            {{ numberFormat(datum) }}
                         </li>
                     </ul>
                 </l-tooltip>
@@ -324,7 +324,7 @@
                     .attr("transform", function (d) {
                         return "translate(" + 20 + "," + 20 + ")";
                     })
-                    .style("fill", "#007abf")
+                    .style("fill", element.import_model_color)
                     .attr("stroke", "white")
                     .style("stroke-width", "1px");
             },

@@ -71,7 +71,7 @@ class CityRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->select(
-                "'Pays-de-la-Loire' as Region",
+                "'Provence-Alpes-Côte d''Azur' as Region",
                 'department.name as departement_nom',
                 'department.code as departement_numero',
                 'district.name as arrondissement_nom',

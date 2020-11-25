@@ -20,10 +20,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class GeojsonController extends AbstractController
 {
     const GEOJSON_FILES = [
-        'districts' => 'ARRONDISSEMENT_PDL.json',
-        'cities' => 'COMMUNE_PDL.json',
+        'districts' => 'ARRONDISSEMENT_PACA.json',
+        'cities' => 'COMMUNE_PACA.json',
         'rivers' => 'COURS_EAU_PDL.json',
-        'departments' => 'DEPARTEMENT_PDL.json',
+        'departments' => 'DEPARTEMENT_PACA.json',
         'epcis' => 'EPCI_PACA.json',
         'ocean' => 'FOND_OCEAN.json',
         'regions' => 'REGION_FRANCE.json'

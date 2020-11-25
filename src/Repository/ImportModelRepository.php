@@ -287,8 +287,9 @@ class ImportModelRepository extends ServiceEntityRepository
         $this->addJoinDataView($queryBuilder);
 
         $queryBuilder
+            ->join('data_view.city', 'city')
             ->andWhere(
-                $queryBuilder->expr()->eq('data_view.city', $city->getId())
+                $queryBuilder->expr()->eq('city.siren', $queryBuilder->expr()->literal($city->getSiren()))
             );
 
         return $this;

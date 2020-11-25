@@ -222,12 +222,12 @@ class MapViewService
     public function getCleanedIndicatorData(array $data)
     {
         $cleanedData['legend']['import_models'] = [];
-        for ($i = 0; $i < count($data); $i++) {
+        for ($i = 0, $iMax = count($data); $i < $iMax; $i++) {
             if (!array_key_exists($data[$i]['import_model_name'], $cleanedData['legend']['import_models'])) {
                 $cleanedData['legend']['import_models'][$data[$i]['import_model_name']] = null;
             }
-            $data[$i]['lat'] = floatval($data[$i]['lat']);
-            $data[$i]['long'] = floatval($data[$i]['long']);
+            $data[$i]['lat'] = (float)$data[$i]['lat'];
+            $data[$i]['long'] = (float)$data[$i]['long'];
         }
         $cleanedData['cities'] = $data;
 

@@ -35,7 +35,7 @@ from data_line
          left join carrying_structure_view csv on csv.siren = data_line.siren_carrier
                                                 and csv.year = import_log.year
                                                 and department.id = csv.department_id
-                                                and csv.district_id = COALESCE(district.id, csv.district_id)
+                                                and csv.district_id = district.id
 group by data.id,
          import_model.id,
          data_line.id,

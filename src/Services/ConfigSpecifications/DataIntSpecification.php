@@ -50,9 +50,9 @@ class DataIntSpecification extends AbstractConfigSpecification
         $this->isValid($data, $objects);
 
         try {
-            $value = $data['value'];
+            $value = $data['value'] === '' ? null : $data['value'];;
             if ($data['value'] !== null && $data['value'] !== '') {
-                $value = str_replace([' ', ' ', ',', '€'], ['', '', '.', ''], $data['value']);
+                $value = str_replace([' ', ' ', ',', '€'], ['', '', '.', ''], $data['value']);
                 $value = intval($value);
             }
         } catch (\Exception $exception) {

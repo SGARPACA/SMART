@@ -93,7 +93,6 @@ class ImportInseeRemovalService
             }
             $this->entityManager->flush();
         } catch (\Exception $exception) {
-            dump($exception);
             throw $exception;
         }
 

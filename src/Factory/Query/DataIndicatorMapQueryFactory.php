@@ -12,6 +12,7 @@ class DataIndicatorMapQueryFactory extends AbstractSqlFactory
 
     const SELECT  = [
         'data_view.import_model_name as import_model_name',
+        'data_view.import_model_color as import_model_color',
         'data_view.city_siren',
         "CONCAT(city_name, ', ', import_model_name, ' ', year) as name",
         'st_x(ST_Centroid(polygons)) as long',
@@ -20,6 +21,7 @@ class DataIndicatorMapQueryFactory extends AbstractSqlFactory
 
     const GROUP_BY = [
         'data_view.import_model_name',
+        'data_view.import_model_color',
         'data_view.city_siren',
         'data_view.city_name',
         'data_view.import_model_name',
@@ -54,8 +56,8 @@ class DataIndicatorMapQueryFactory extends AbstractSqlFactory
             ->addCity($filters, $sourceQuery)
             ->addSirenCarrier($filters, $sourceQuery);
 
-        $groupBy = join(', ', self::GROUP_BY);
-        $sourceQuery .= "GROUP BY {$groupBy}";
+        $groupBy = implode(', ', self::GROUP_BY);
+        $sourceQuery .= " GROUP BY {$groupBy}";
 
         return $sourceQuery;
     }

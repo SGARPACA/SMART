@@ -292,7 +292,7 @@ class EasyAdminController extends BaseController
      */
     public function newImportModelAction()
     {
-        $importModel = null;
+        $importModel = new ImportModel();
         if ($this->request->getMethod() !== 'POST') {
             $importModel = $this->importModelService->generateImportModel();
         }

@@ -26,16 +26,17 @@ class ImportLogRepository extends ServiceEntityRepository
 
     /**
      * @param ImportModel $importModel
+     * @param bool $isDisabled
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getByImportModel(ImportModel $importModel)
+    public function getByImportModel(ImportModel $importModel, bool $isDisabled = false)
     {
         $queryBuilder = $this->createQueryBuilder('import_log');
         $queryBuilder
             ->andWhere('import_log.importModel = :importModel')
             ->andWhere('import_log.isDisabled = :isDisabled')
             ->setParameter('importModel', $importModel)
-            ->setParameter('isDisabled', false);
+            ->setParameter('isDisabled', $isDisabled);
 
         return $queryBuilder->getQuery()->getResult();
     }
