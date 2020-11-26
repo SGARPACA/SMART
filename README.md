@@ -1,6 +1,6 @@
 Documentation technique
 ==========================
-http://tech.athome-solution.fr/tech/architecture
+
 
 
 ````
